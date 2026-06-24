@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="A professional student dashboard to track grades, attendance, assignments, and upcoming exams." />
+  <title>StudentHub — My Dashboard</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ========== SIDEBAR ========== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">S</div>
+        <span class="logo-text">StudentHub</span>
+      </div>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">&#10005;</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="#" class="nav-link active" data-section="dashboard" id="nav-dashboard">
+            <span class="nav-icon">&#9783;</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-section="grades" id="nav-grades">
+            <span class="nav-icon">&#10003;</span>
+            <span>My Grades</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-section="schedule" id="nav-schedule">
+            <span class="nav-icon">&#128197;</span>
+            <span>Schedule</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-section="assignments" id="nav-assignments">
+            <span class="nav-icon">&#128196;</span>
+            <span>Assignments</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-section="attendance" id="nav-attendance">
+            <span class="nav-icon">&#128100;</span>
+            <span>Attendance</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="user-avatar" id="sidebarAvatar">N</div>
+        <div class="user-info">
+          <p class="user-name" id="sidebarName">Naveen</p>
+          <p class="user-grade">B.Tech CSE — Semester 6</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========== OVERLAY (mobile) ========== -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="page-title" id="pageTitle">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-box">
+          <span class="search-icon">&#128269;</span>
+          <input type="text" id="globalSearch" placeholder="Search anything..." aria-label="Search" />
+        </div>
+        <div class="notif-bell" id="notifBell" title="Notifications">
+          &#128276;
+          <span class="notif-badge" id="notifBadge">3</span>
+        </div>
+        <div class="topbar-avatar" id="topbarAvatar">N</div>
+      </div>
+    </header>
+
+    <!-- ===== SECTIONS ===== -->
+
+    <!-- DASHBOARD SECTION -->
+    <section class="section active" id="section-dashboard">
+
+      <!-- Welcome Banner -->
+      <div class="welcome-banner">
+        <div class="welcome-text">
+          <h1>Welcome back, <span id="studentFirstName">Naveen</span>! 👋</h1>
+          <p id="welcomeSubtext">Here's a quick look at how you're doing this semester.</p>
+        </div>
+        <div class="welcome-illustration">📚</div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card" id="card-gpa">
+          <div class="stat-icon blue">&#127891;</div>
+          <div class="stat-body">
+            <p class="stat-label">Current GPA</p>
+            <h2 class="stat-value" id="gpaValue">3.8</h2>
+            <p class="stat-change positive">&#8593; +0.2 from last semester</p>
+          </div>
+        </div>
+        <div class="stat-card" id="card-attendance">
+          <div class="stat-icon green">&#10003;</div>
+          <div class="stat-body">
+            <p class="stat-label">Attendance</p>
+            <h2 class="stat-value" id="attendanceValue">92%</h2>
+            <p class="stat-change positive">&#8593; Good standing</p>
+          </div>
+        </div>
+        <div class="stat-card" id="card-assignments">
+          <div class="stat-icon yellow">&#128196;</div>
+          <div class="stat-body">
+            <p class="stat-label">Pending Tasks</p>
+            <h2 class="stat-value" id="pendingValue">4</h2>
+            <p class="stat-change warning">2 due this week</p>
+          </div>
+        </div>
+        <div class="stat-card" id="card-exams">
+          <div class="stat-icon red">&#128197;</div>
+          <div class="stat-body">
+            <p class="stat-label">Next Exam</p>
+            <h2 class="stat-value" id="nextExamValue">3 Days</h2>
+            <p class="stat-change warning">Physics — June 11</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle Row -->
+      <div class="mid-row">
+
+        <!-- Subject Progress -->
+        <div class="card subject-progress">
+          <div class="card-header">
+            <h3>Subject Progress</h3>
+            <span class="card-badge">Semester 2</span>
+          </div>
+          <div class="progress-list" id="progressList">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+
+        <!-- Upcoming Exams -->
+        <div class="card upcoming-exams">
+          <div class="card-header">
+            <h3>Upcoming Exams</h3>
+            <button class="btn-link" onclick="switchSection('schedule')">View All</button>
+          </div>
+          <ul class="exam-list" id="examList">
+            <!-- Filled by JS -->
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="bottom-row">
+
+        <!-- Recent Activity -->
+        <div class="card activity-feed">
+          <div class="card-header">
+            <h3>Recent Activity</h3>
+          </div>
+          <ul class="activity-list" id="activityList">
+            <!-- Filled by JS -->
+          </ul>
+        </div>
+
+        <!-- Quick Notes -->
+        <div class="card quick-notes">
+          <div class="card-header">
+            <h3>Quick Notes</h3>
+            <button class="btn-icon" id="addNoteBtn" title="Add note">&#43;</button>
+          </div>
+          <div class="notes-area" id="notesArea">
+            <!-- Filled by JS -->
+          </div>
+          <div class="note-input-row" id="noteInputRow" style="display:none;">
+            <input type="text" id="noteInput" placeholder="Write a note..." maxlength="120" />
+            <button id="saveNoteBtn">Save</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GRADES SECTION -->
+    <section class="section" id="section-grades">
+      <div class="section-heading">
+        <h2>My Grades</h2>
+        <p>Track your marks and performance across all subjects.</p>
+      </div>
+
+      <div class="grades-filters">
+        <button class="filter-btn active" data-filter="all" id="filter-all">All</button>
+        <button class="filter-btn" data-filter="science" id="filter-science">Science</button>
+        <button class="filter-btn" data-filter="math" id="filter-math">Math</button>
+        <button class="filter-btn" data-filter="language" id="filter-language">Language</button>
+      </div>
+
+      <div class="grades-table-wrap">
+        <table class="grades-table" id="gradesTable">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Category</th>
+              <th>Marks Obtained</th>
+              <th>Total Marks</th>
+              <th>Percentage</th>
+              <th>Grade</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="gradesBody">
+            <!-- Filled by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SCHEDULE SECTION -->
+    <section class="section" id="section-schedule">
+      <div class="section-heading">
+        <h2>My Schedule</h2>
+        <p>Your weekly timetable and upcoming exam dates.</p>
+      </div>
+
+      <div class="timetable-wrap">
+        <div class="timetable-header">
+          <h3>Weekly Timetable</h3>
+        </div>
+        <div class="timetable-grid" id="timetableGrid">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <div class="exam-schedule-card card">
+        <div class="card-header">
+          <h3>Exam Calendar</h3>
+        </div>
+        <ul class="exam-schedule-list" id="examScheduleList">
+          <!-- Filled by JS -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- ASSIGNMENTS SECTION -->
+    <section class="section" id="section-assignments">
+      <div class="section-heading">
+        <h2>Assignments</h2>
+        <p>Keep track of your tasks and deadlines.</p>
+      </div>
+
+      <div class="assignments-toolbar">
+        <div class="assign-filters">
+          <button class="filter-btn active" data-assign-filter="all" id="af-all">All</button>
+          <button class="filter-btn" data-assign-filter="pending" id="af-pending">Pending</button>
+          <button class="filter-btn" data-assign-filter="completed" id="af-completed">Completed</button>
+        </div>
+        <button class="btn-primary" id="addAssignBtn">+ Add Task</button>
+      </div>
+
+      <div class="assignment-list" id="assignmentList">
+        <!-- Filled by JS -->
+      </div>
+
+      <!-- Add Assignment Modal -->
+      <div class="modal-overlay" id="assignModal">
+        <div class="modal" id="assignModalBox">
+          <div class="modal-header">
+            <h3>Add New Task</h3>
+            <button class="modal-close" id="closeAssignModal">&#10005;</button>
+          </div>
+          <div class="modal-body">
+            <label for="taskTitle">Task Title</label>
+            <input type="text" id="taskTitle" placeholder="e.g. Physics Lab Report" />
+
+            <label for="taskSubject">Subject</label>
+            <input type="text" id="taskSubject" placeholder="e.g. Physics" />
+
+            <label for="taskDue">Due Date</label>
+            <input type="date" id="taskDue" />
+
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-secondary" id="cancelAssignBtn">Cancel</button>
+            <button class="btn-primary" id="saveAssignBtn">Save Task</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATTENDANCE SECTION -->
+    <section class="section" id="section-attendance">
+      <div class="section-heading">
+        <h2>Attendance</h2>
+        <p>Your attendance record for the current semester.</p>
+      </div>
+
+      <div class="attend-overview">
+        <div class="attend-donut-wrap">
+          <canvas id="attendanceChart" width="200" height="200"></canvas>
+          <div class="attend-center-text">
+            <span id="attendPct">92%</span>
+            <small>Present</small>
+          </div>
+        </div>
+        <div class="attend-stats">
+          <div class="attend-stat present">
+            <span id="daysPresent">92</span>
+            <label>Days Present</label>
+          </div>
+          <div class="attend-stat absent">
+            <span id="daysAbsent">8</span>
+            <label>Days Absent</label>
+          </div>
+          <div class="attend-stat total">
+            <span id="totalDays">100</span>
+            <label>Total Days</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card attend-subject-card">
+        <div class="card-header">
+          <h3>Subject-wise Attendance</h3>
+        </div>
+        <div class="attend-subject-list" id="attendSubjectList">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast notification container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
